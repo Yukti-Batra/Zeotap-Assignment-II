@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Ingestion Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Data Ingestion Tool</h2>
+
+        <label for="sourceSelection">Select Data Source:</label>
+        <select id="sourceSelection" onchange="toggleSourceFields()">
+            <option value="">-- Select --</option>
+            <option value="clickhouse">ClickHouse</option>
+            <option value="flatfile">Flat File</option>
+        </select>
+
+        <div id="clickhouseFields" style="display:none;">
+            <h3>ClickHouse Connection</h3>
+            <label for="host">Host:</label>
+            <input type="text" id="host" placeholder="Enter ClickHouse Host">
+            <label for="port">Port:</label>
+            <input type="text" id="port" placeholder="Enter ClickHouse Port">
+            <label for="database">Database:</label>
+            <input type="text" id="database" placeholder="Enter Database Name">
+            <label for="username">User:</label>
+            <input type="text" id="username" placeholder="Enter Username">
+            <label for="jwtToken">JWT Token:</label>
+            <input type="text" id="jwtToken" placeholder="Enter JWT Token">
+            <button onclick="fetchTables()">Fetch Tables</button>
+            <div id="tables"></div>
+        </div>
+
+        <div id="flatFileFields" style="display:none;">
+            <h3>Flat File Configuration</h3>
+            <label for="filePath">File Path:</label>
+            <input type="text" id="filePath" placeholder="Enter file path">
+            <label for="delimiter">Delimiter:</label>
+            <input type="text" id="delimiter" placeholder="Enter delimiter (e.g., comma)">
+            <button onclick="loadFlatFileColumns()">Load Columns</button>
+        </div>
+
+        <div id="columnSelection" style="display:none;">
+            <h3>Select Columns</h3>
+            <div class="columns" id="columns"></div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="previewData()">Preview Data</button>
+            <button onclick="startIngestion()">Start Ingestion</button>
+        </div>
+
+        <div class="status" id="status"></div>
+        <div class="result" id="result"></div>
+    </div>
+</body>
+</html>
